@@ -4,9 +4,18 @@
 
 Práctica 12 de *Seguridad y Servicios* (2º Redes, IES Politécnico Jesús Marín) · Autora: **Lenka Kyjovská**
 
-🌍 **Web en directo:** https://lenkakyjovska.online
-📦 **Imagen en Docker Hub:** https://hub.docker.com/r/lkyj004/lenka-web
-🐘 **Mi segunda imagen (LAMP con base de datos y QR):** https://github.com/lkyjovska/practica12-lamp-docker
+## 🔗 Todos mis enlaces
+
+| Qué | Dirección |
+|---|---|
+| 🌍 Web con el QR (imagen `lenka-web`) | https://lenkakyjovska.online |
+| 🗄️ Web LAMP con base de datos | https://lamp.lenkakyjovska.online |
+| 📖 **Guía para principiantes** (documentación MkDocs) | https://lkyjovska.github.io/practica12-lamp-docker/guia-principiantes/ |
+| 📚 Documentación completa | https://lkyjovska.github.io/practica12-lamp-docker/ |
+| 📂 Repositorio de esta imagen (`web-lenka`) | https://github.com/lkyjovska/web-lenka |
+| 📂 Repositorio del LAMP y la documentación | https://github.com/lkyjovska/practica12-lamp-docker |
+| 📦 Imagen `lenka-web` en Docker Hub | https://hub.docker.com/r/lkyj004/lenka-web |
+| 📦 Imagen `lenka-lamp` en Docker Hub | https://hub.docker.com/r/lkyj004/lenka-lamp |
 
 ![La web lenka-web](img/lenka-web.png)
 
