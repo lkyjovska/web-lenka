@@ -1,0 +1,10 @@
+services:
+  web:
+    image: lkyj004/lenka-web:1.2
+    container_name: lenka-web
+    restart: unless-stopped
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true

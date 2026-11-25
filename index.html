@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lenka Web · Docker cheat sheet</title>
+<style>
+  :root { --azul:#1d6fc4; --azul-claro:#e8f2fc; --texto:#26343f; --suave:#667784; --linea:#dfe7ee; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,"Segoe UI",Arial,sans-serif; background:#f7fafc; color:var(--texto); line-height:1.55; }
+  header { padding:40px 24px 28px; text-align:center; background:#fff; border-bottom:1px solid var(--linea); }
+  header h1 { margin:0 0 6px; font-size:2.2rem; color:var(--azul); }
+  header p { margin:4px 0; color:var(--suave); }
+  .ballena { font-size:2.8rem; }
+  main { max-width:1100px; margin:0 auto; padding:28px 20px 44px; display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px; }
+  section { background:#fff; border:1px solid var(--linea); border-radius:12px; padding:18px 22px; }
+  section h2 { margin:0 0 2px; font-size:1.15rem; color:var(--azul); }
+  section .idea { margin:0 0 12px; color:var(--suave); font-size:.92rem; }
+  dl { margin:0; }
+  dt { margin-top:10px; }
+  code { font-family:Consolas,"Courier New",monospace; background:var(--azul-claro); color:#124a85; padding:3px 8px; border-radius:6px; font-size:.88rem; display:inline-block; }
+  dd { margin:3px 0 0; color:var(--suave); font-size:.88rem; }
+  .nota { grid-column:1/-1; background:var(--azul-claro); border-color:#cfe2f6; }
+  footer { text-align:center; padding:22px; color:var(--suave); font-size:.85rem; border-top:1px solid var(--linea); }
+</style>
+</head>
+<body>
+<header>
+  <div class="ballena">🐳</div>
+  <h1>Docker cheat sheet</h1>
+  <p>Los comandos que hemos usado en la Práctica 12 · SRI &amp; SAD · 2º Redes</p>
+  <p>Servida desde un contenedor con mi propia imagen: <strong>lkyj004/lenka-web</strong></p>
+</header>
+<main>
+  <section>
+    <h2>📦 Imágenes</h2>
+    <p class="idea">La receta ya cocinada.</p>
+    <dl>
+      <dt><code>docker pull nginx:alpine</code></dt><dd>Descarga una imagen de Docker Hub</dd>
+      <dt><code>docker images</code></dt><dd>Lista las imágenes del servidor</dd>
+      <dt><code>docker build -t usuario/img:1.0 .</code></dt><dd>Construye una imagen desde un Dockerfile</dd>
+      <dt><code>docker push usuario/img:1.0</code></dt><dd>Sube la imagen a Docker Hub</dd>
+      <dt><code>docker rmi nginx:alpine</code></dt><dd>Borra una imagen</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>🚀 Contenedores</h2>
+    <p class="idea">El plato servido con esa receta.</p>
+    <dl>
+      <dt><code>docker run -d --name web img</code></dt><dd>Crea y arranca un contenedor en segundo plano</dd>
+      <dt><code>docker ps</code> · <code>docker ps -a</code></dt><dd>En marcha · todos</dd>
+      <dt><code>docker logs --tail 20 web</code></dt><dd>Últimas líneas del registro</dd>
+      <dt><code>docker exec -it web sh</code></dt><dd>Entra dentro del contenedor</dd>
+      <dt><code>docker stop web</code> · <code>docker rm web</code></dt><dd>Parar · borrar</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>🌐 Redes y puertos</h2>
+    <p class="idea">Cómo se hablan los contenedores y el exterior.</p>
+    <dl>
+      <dt><code>-p 127.0.0.1:8090:80</code></dt><dd>Publica el puerto 80 del contenedor en el 8090 local</dd>
+      <dt><code>EXPOSE 80</code></dt><dd>Solo documenta el puerto: no abre nada</dd>
+      <dt><code>docker network ls</code></dt><dd>Lista las redes</dd>
+      <dt><code>docker network create proxy</code></dt><dd>Red propia: los contenedores se ven por nombre</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>💾 Volúmenes</h2>
+    <p class="idea">Para que los datos sobrevivan al contenedor.</p>
+    <dl>
+      <dt><code>-v datos:/app/data</code></dt><dd>Volumen con nombre (lo gestiona Docker)</dd>
+      <dt><code>-v ./carpeta:/data</code></dt><dd>Bind mount (una carpeta tuya del servidor)</dd>
+      <dt><code>docker volume ls</code></dt><dd>Lista los volúmenes</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>🧩 Docker Compose</h2>
+    <p class="idea">Todo escrito en un archivo.</p>
+    <dl>
+      <dt><code>docker compose up -d</code></dt><dd>Arranca el stack</dd>
+      <dt><code>docker compose down</code></dt><dd>Para y borra los contenedores del stack</dd>
+      <dt><code>docker compose logs -f</code></dt><dd>Sigue los registros</dd>
+    </dl>
+  </section>
+  <section>
+    <h2>🔎 Inspeccionar</h2>
+    <p class="idea">Mirar qué pasa por dentro.</p>
+    <dl>
+      <dt><code>docker inspect web</code></dt><dd>Detalles: IP, montajes, salud</dd>
+      <dt><code>docker stats --no-stream</code></dt><dd>CPU y memoria</dd>
+      <dt><code>docker system df</code></dt><dd>Espacio que ocupa Docker</dd>
+    </dl>
+  </section>
+  <section class="nota">
+    <h2>🧭 Cómo llega esta página hasta ti</h2>
+    <p class="idea">Navegador → NPM (80/443, certificado) → contenedor lenka-web, por la red <code>proxy</code>. Solo NPM está abierto a Internet.</p>
+  </section>
+  <section class="nota">
+    <h2>📖 Cómo se hizo esta imagen</h2>
+    <p class="idea">Escanea el QR o pulsa el enlace: en GitHub está todo explicado paso a paso (Dockerfile, build, push y despliegue).</p>
+    <p style="text-align:center"><img src="qr.png" alt="QR a GitHub" width="150"></p>
+    <p style="text-align:center"><a href="https://github.com/lkyjovska/web-lenka">github.com/lkyjovska/web-lenka</a></p>
+  </section>
+</main>
+<footer>Creada por Lenka Kyjovska · Práctica 12 · IES Politécnico Jesús Marín</footer>
+</body>
+</html>
